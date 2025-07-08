@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotton Pest and Disease Detection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar a.active {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+
+        .sidebar a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            margin-left: 250px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .abstract-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+
+        .abstract-card h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .abstract-card p {
+            color: #444;
+            line-height: 1.5;
+            font-size: 14px;
+            text-align: justify;
+        }
+
+        .introduction-card {
+            background-color: #e7f5fe;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .introduction-card h2 {
+            color: #3498db;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .introduction-card p {
+            color: #444;
+            line-height: 1.8;
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        .introduction-card li {
+            color: #444;
+            line-height: 1.8;
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        .introduction-card::before {
+            content: '\f05a';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #3498db;
+            font-size: 24px;
+        }
+
+        .wang {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 10px;
+                position: relative;
+                height: auto;
+            }
+
+            .main-content {
+                max-width: 100%;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/cotton/static/logo.jpg" alt="Logo">
+            <h2>Cotton Pest and Disease Detection</h2>
+        </div>
+        <ul>
+            <li><a href="/cotton/index" class="active"><i class="fas fa-home"></i> home</a></li>
+            <li><a href="/cotton/detection"><i class="fas fa-camera"></i> Detection</a></li>
+            <li><a href="/cotton/introduction"><i class="fas fa-info-circle"></i> Pest and Disease Info</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Resource-efficiency Cotton Network</h1>
+            <p>A Lightweight Deep Learning Framework for Cotton Disease and Pest Classification</p>
+        </div>
+
+        <div class="abstract-card">
+            <h2>Abstract</h2>
+            <p>Cotton is the most widely cultivated natural fiber crop worldwide, yet it is highly susceptible to various diseases and pests that significantly compromise both yield and quality. To enable rapid and accurate diagnosis of cotton diseases and pests—thus supporting the development of effective control strategies and facilitating genetic breeding research—we propose a lightweight model, Resource-efficiency Cotton Network (RF-Cott-Net), alongside an open-source image dataset, CCDPHD-11, encompassing 11 disease categories. Built upon the MobileViTv2 backbone, RF-Cott-Net integrates an Early-exit mechanism and Quantization-Aware Training (QAT) to enhance deployment efficiency without sacrificing accuracy. Experimental results on CCDPHD-11 demonstrate that RF-Cott-Net achieves an accuracy of 98.4%, an F1-score of 98.4%, a precision of 98.5%, and a recall of 98.3%. With only 4.9M parameters, 310M FLOPs, an inference time of 3.8 ms, and a storage footprint of just 4.8MB, RF-Cott-Net delivers outstanding accuracy and real-time performance, making it highly suitable for deployment on agricultural edge devices and providing robust support for in-field automated detection of cotton diseases and pests.</p>
+        </div>
+
+        <div class="introduction-card">
+            <h2>Introduction</h2>
+            <p>Cotton is a crucial crop, accounting for 35% of global textile fiber demand. It's vital for the economies of both producing and consuming countries. However, cotton faces threats from diseases and pests, leading to significant economic losses. Current control methods are imprecise, costly, and ineffective, often relying on chemical pesticides.</p>
+            <p>Effective management requires accurate identification of cotton diseases and pests to develop precise control strategies. This helps reduce reliance on chemicals and fosters natural resistance. Traditional identification methods are labor-intensive and inaccurate, leading to misdiagnosis and improper pesticide use.</p>
+            <p>Machine learning has been used for automated identification, but these methods have limitations in feature extraction and scalability. Deep learning offers better performance but requires large datasets and computational resources, which are often lacking.</p>
+            <p>To address these issues, we introduce RF-Cott-Net, a lightweight deep learning model for detecting and classifying cotton diseases and pests. Our contributions include:</p>
+                <li>A new dataset, CCDPHD-11, with 11 categories and 18,953 images, offering more diversity than existing datasets.</li>
+                <li>RF-Cott-Net, based on MobileViTv2, uses Quantization-Aware Training (QAT) and an Early-exit mechanism for high performance and compactness.</li>
+                <li>Achieving 98.4% accuracy on CCDPHD-11 with a small model size (4.8MB), making it suitable for edge devices.</li>
+            <p>This study aims to improve automation in cotton disease and pest identification, supporting the development of precision agriculture. The paper is organized into sections detailing methods, experiments, results, discussion, and conclusion.</p>
+        </div>
+        <div class="wang">
+            <p>If you would like to learn more details about our project, you can visit <a href="#">this webpage</a>.</p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.sidebar a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotton Pest and Disease Detection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar a.active {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+
+        .sidebar a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            max-width: calc(100% - 250px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .main-content {
+                max-width: 100%;
+            }
+        }
+
+        .detection-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .upload-area {
+            text-align: center;
+            padding: 30px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: #3498db;
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        .upload-preview {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .upload-preview img {
+            max-width: 150px;
+            max-height: 150px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            padding: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .upload-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .upload-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 20px;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .upload-btn:hover {
+            background-color: #dfe6e9;
+        }
+
+        .upload-btn i {
+            margin-right: 8px;
+        }
+
+        #classify-btn {
+            padding: 12px 25px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        #classify-btn:hover {
+            background-color: #27ae60;
+        }
+
+        #classify-btn i {
+            margin-right: 8px;
+        }
+
+        .result-area {
+            margin-top: 30px;
+        }
+
+        .result-area h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        #result {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .result-details {
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .detail-item .label {
+            width: 120px;
+            font-weight: 600;
+            color: #7f8c8d;
+        }
+
+        .detail-item .value {
+            flex: 1;
+            color: #2c3e50;
+        }
+
+        .info-panel {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+        }
+
+        .info-panel h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .info-panel ol {
+            padding-left: 20px;
+        }
+
+        .info-panel li {
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+
+        @media (max-width: 768px) {
+            .upload-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .result-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .result-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: calc(50% - 10px);
+            min-width: 250px;
+        }
+
+        .result-card img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .result-card h3 {
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .result-card p {
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+
+        .result-card .confidence {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/cotton/static/logo.jpg" alt="Logo">
+            <h2>Cotton Pest and Disease Detection</h2>
+        </div>
+        <ul>
+            <li><a href="/cotton/index"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/cotton/detection" class="active"><i class="fas fa-camera"></i> Detection</a></li>
+            <li><a href="/cotton/introduction"><i class="fas fa-info-circle"></i> Pest and Disease Info</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <h1>MobileViT Cotton Pest Detection</h1>
+            <p>Precision detection using MobileViT technology</p>
+        </div>
+        <div class="detection-container">
+            <div class="upload-area">
+                <div class="upload-preview" id="preview-container">
+                </div>
+                <div class="upload-buttons">
+                    <label for="image-input" class="upload-btn">
+                        <i class="fas fa-upload"></i> Choose Images
+                    </label>
+                    <input type="file" id="image-input" accept="image/*" multiple hidden>
+                    <button id="classify-btn">
+                        <i class="fas fa-search"></i> Detect
+                    </button>
+                </div>
+            </div>
+            <div class="result-area">
+                <h2>Results</h2>
+                <div id="result">
+                    <p>Please upload images to start detection.</p>
+                </div>
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Usage Guide</h3>
+            <ol>
+                <li>Click the "Choose Images" button to upload multiple cotton plant images (hold Ctrl or Shift to select multiple).</li>
+                <li>Click the "Detect" button to perform pest detection.</li>
+                <li>View the detection results for each image, showing class and confidence level.</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageInput = document.getElementById('image-input');
+            const classifyBtn = document.getElementById('classify-btn');
+            const resultDiv = document.getElementById('result');
+            const previewContainer = document.getElementById('preview-container');
+
+            function createResultCard(imageUrl, className, confidence) {
+                const card = document.createElement('div');
+                card.className = 'result-card';
+                card.innerHTML = `
+                    <img src="${imageUrl}" alt="Detected Image">
+                    <h3>Class: ${className}</h3>
+                    <p>Confidence: <span class="confidence">${confidence.toFixed(2)}%</span></p>
+                `;
+                return card;
+            }
+
+            imageInput.addEventListener('change', function() {
+                previewContainer.innerHTML = '';
+                if (this.files && this.files.length > 0) {
+                    for (let i = 0; i < this.files.length; i++) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.alt = 'Preview';
+                            previewContainer.appendChild(img);
+                        };
+                        reader.readAsDataURL(this.files[i]);
+                    }
+                }
+            });
+
+            classifyBtn.addEventListener('click', async function() {
+                const files = imageInput.files;
+                if (files.length === 0) {
+                    alert('Please select at least one image');
+                    return;
+                }
+
+                const formData = new FormData();
+                for (let i = 0; i < files.length; i++) {
+                    formData.append('image', files[i]);
+                }
+
+                try {
+                    const response = await fetch('http://localhost:5000/predict', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const results = await response.json();
+
+                    if (Array.isArray(results)) {
+                        resultDiv.innerHTML = '<h3>Detection Results:</h3><div class="result-cards" id="result-cards"></div>';
+                        const resultCardsContainer = document.getElementById('result-cards');
+
+                        for (let i = 0; i < results.length; i++) {
+                            const result = results[i];
+                            const fileReader = new FileReader();
+                            fileReader.onload = function(e) {
+                                const resultCard = createResultCard(e.target.result, result.class_name, result.confidence * 100);
+                                resultCardsContainer.appendChild(resultCard);
+                            };
+                            fileReader.readAsDataURL(files[i]);
+                        }
+                    } else if (results.error) {
+                        resultDiv.innerHTML = `<p>Error: ${results.error}</p>`;
+                    } else {
+                        resultDiv.innerHTML = '<p>Unexpected response from server</p>';
+                    }
+                } catch (error) {
+                    console.error('Detection failed:', error);
+                    resultDiv.innerHTML = '<p>Detection failed, please try again</p>';
+                }
+            });
+
+            const navLinks = document.querySelectorAll('.sidebar a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
