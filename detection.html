@@ -405,7 +405,10 @@
                 try {
                     const response = await fetch('http://152.136.16.231:5000/predict', {
                         method: 'POST',
-                        body: formData
+                        body: formData，
+                        agent: new https.Agent({
+                            rejectUnauthorized: false
+                        })
                     });
 
                     const results = await response.json();
